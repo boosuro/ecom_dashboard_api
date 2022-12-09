@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Providers;
+
+use App\Repositories\ProductRepository;
+use App\Repositories\ProductRepositoryEloquent;
+use App\Repositories\ProductVariantRepository;
+use App\Repositories\ProductVariantRepositoryEloquent;
+use Illuminate\Support\ServiceProvider;
+
+class RepositoryServiceProvider extends ServiceProvider
+{
+    /**
+     * Register services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->bind(ProductRepository::class, ProductRepositoryEloquent::class);
+        $this->app->bind(ProductVariantRepository::class, ProductVariantRepositoryEloquent::class);
+    }
+
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+    }
+}
