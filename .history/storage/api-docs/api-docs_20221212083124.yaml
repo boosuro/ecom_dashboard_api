@@ -1,0 +1,48 @@
+openapi: 3.0.0
+info:
+  title: "APIs For OrdersPackPHPTest"
+  version: 1.0.0
+paths:
+  /api/v1/products:
+    get:
+      tags:
+        - Products
+      summary: "Fetch Products"
+      description: "Get list of products"
+      operationId: 7ad42b1da991a569902fe0f55ffc7540
+      responses:
+        200:
+          description: "successful operation"
+      security:
+        - apiAuth: []
+  /api/v1/login:
+    post:
+      tags:
+        - Users
+      summary: "Login User"
+      operationId: 04edf01e45db5894b023de5590901cd1
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "successful operation"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      name: Authorization
+      in: header
+      bearerFormat: JWT
+      scheme: bearer
+
+security:
+  - bearerAuth: []
