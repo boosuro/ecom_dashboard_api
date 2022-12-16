@@ -44,11 +44,7 @@ class ProductVariantApiController extends Controller
      *   @OA\Response(
      *       response=403,
      *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),       
+     *    )
      * ),
      * 
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
@@ -170,11 +166,7 @@ class ProductVariantApiController extends Controller
      *   @OA\Response(
      *       response=403,
      *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),       
+     *    )
      * )
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
@@ -301,11 +293,7 @@ class ProductVariantApiController extends Controller
      *   @OA\Response(
      *       response=403,
      *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),       
+     *    )
      * ),
      * 
      * @author Boosuro Stephen <boosurostephen@yahoo.com>

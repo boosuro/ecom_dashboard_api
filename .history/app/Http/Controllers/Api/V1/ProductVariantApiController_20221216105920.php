@@ -44,11 +44,7 @@ class ProductVariantApiController extends Controller
      *   @OA\Response(
      *       response=403,
      *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),       
+     *    )
      * ),
      * 
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
@@ -170,11 +166,7 @@ class ProductVariantApiController extends Controller
      *   @OA\Response(
      *       response=403,
      *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),       
+     *    )
      * )
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
@@ -199,7 +191,7 @@ class ProductVariantApiController extends Controller
      *   security={ {"BearerAuth": {} }},
      *   @OA\Parameter(
      *       name="id",
-     *       description="Product Variant id",
+     *       description="Product id",
      *       required=true,
      *       in="path",
      *       @OA\Schema(
@@ -207,7 +199,7 @@ class ProductVariantApiController extends Controller
      *       )
      *   ),
      *   @OA\Parameter(
-     *        name="variant_name",
+     *        name="name",
      *        description="Product Variant Name",
      *        example="XL",
      *        in="query",
@@ -216,7 +208,7 @@ class ProductVariantApiController extends Controller
      *        )
      *   ),
      *   @OA\Parameter(
-     *        name="variant_group_id",
+     *        name="price",
      *        in="query",
      *        description="Variant Group Id",
      *        example="1",
@@ -271,43 +263,6 @@ class ProductVariantApiController extends Controller
     }
 
     /**
-     * @OA\Delete(
-     *   path="/api/v1/productvariants/{id}",
-     *   operationId="deleteProductVariant",
-     *   summary="Delete Product Variant",
-     *   tags={"Product Variants"},
-     *   description="Delete a product variant",
-     *   security={ {"BearerAuth": {} }},
-     *   @OA\Parameter(
-     *       name="id",
-     *       description="Product Variant id",
-     *       required=true,
-     *       in="path",
-     *       @OA\Schema(
-     *          type="integer"
-     *       )
-     *   ),
-     *   @OA\Response(
-     *      response=201, 
-     *      description="Product Variant deleted successfully",
-     *      @OA\MediaType(
-     *         mediaType="application/json",
-     *      ),
-     *   ),
-     *   @OA\Response(
-     *      response=401,
-     *      description="Unauthorized",
-     *   ),
-     *   @OA\Response(
-     *       response=403,
-     *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),       
-     * ),
-     * 
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
      * Remove the specified resource from storage.

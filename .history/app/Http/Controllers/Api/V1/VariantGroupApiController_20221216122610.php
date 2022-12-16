@@ -2,33 +2,32 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\ProductVariant;
+use App\Models\VariantGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProductVariantResource;
-use App\Repositories\ProductVariantRepository;
 use Illuminate\Support\Facades\Validator;
+use App\Repositories\VariantGroupRepository;
 
-class ProductVariantApiController extends Controller
+class VariantGroupApiController extends Controller
 {
     /**
-     * @var ProductVariantRepository
+     * @var VariantGroupRepository
      */
-    protected $productvariantRepository;
+    protected $variantGroupRepository;
 
-    public function __construct(ProductVariantRepository $productvariantRepository)
+    public function __construct(VariantGroupRepository $variantGroupRepository)
     {
-        $this->productvariantRepository = $productvariantRepository;
+        $this->variantGroupRepository = $variantGroupRepository;
     }
 
 
     /**
      * @OA\Get(
-     *   path="/api/v1/productvariants",
-     *   operationId="getAllProductVariants",
-     *   summary="Fetch All Product Variants",
-     *   tags={"Product Variants"},
-     *   description="Get list of product variants",
+     *   path="/api/v1/variantgroups",
+     *   operationId="getAllVariantGroups",
+     *   summary="Fetch All Variant Groups",
+     *   tags={"Variant Groups"},
+     *   description="Get list of Variant Groups",
      *   security={ {"BearerAuth": {} }},
      *   @OA\Response(
      *      response=200, 
@@ -44,16 +43,12 @@ class ProductVariantApiController extends Controller
      *   @OA\Response(
      *       response=403,
      *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),       
+     *    )
      * ),
      * 
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
-     * Display a listing of the ProductVariant.
+     * Display a listing of the Variant Group.
      * 
      *
      * @param Request $request
@@ -61,19 +56,19 @@ class ProductVariantApiController extends Controller
      */
     public function index()
     {
-        $productvariants = $this->productvariantRepository->all();
+        $variantgroups = $this->variantGroupRepository->all();
 
-        return $this->sendResponse($productvariants, 'Product Variant retrieved successfully', 200);
+        return $this->sendResponse($variantgroups, 'Variant Group retrieved successfully', 200);
     }
 
 
     /**
      * @OA\Post(
-     *   path="/api/v1/productvariants",
-     *   operationId="storeProductVariant",
-     *   summary="Store a product variant",
-     *   tags={"Product Variants"},
-     *   description="Store Product Variant",
+     *   path="/api/v1/variantgroups",
+     *   operationId="storeVariantGroup",
+     *   summary="Store a variant group",
+     *   tags={"Variant Groups"},
+     *   description="Store Variant Group",
      *   security={ {"BearerAuth": {} }},
      *   @OA\RequestBody(
      *       required=true,
@@ -82,23 +77,23 @@ class ProductVariantApiController extends Controller
      *           @OA\Schema(
      *               type="object",
      *               @OA\Property(
-     *                   property="variant_name",
-     *                   description="Product Variant",
+     *                   property="variant_group_name",
+     *                   description="Variant Group Name",
      *                   type="string",
-     *                   example="XL"
-     *               ),
-     *               @OA\Property(
-     *                   property="variant_group_id",
-     *                   description="Variant Group Id",
-     *                   type="integer",
-     *                   example="1"
+     *                   example="Weight"
      *               )
-     *           )
+     *               @OA\Property(
+     *                   property="description",
+     *                   description="Description",
+     *                   type="string",
+     *                   example="Weight"
+     *               )       
+     *         )
      *       )
      *   ),   
      *  @OA\Response(
      *      response=201, 
-     *      description="product variant created successfully",
+     *      description="variant group created successfully",
      *      @OA\MediaType(
      *         mediaType="application/json",
      *      ),
@@ -112,6 +107,7 @@ class ProductVariantApiController extends Controller
      *        description="Forbidden"
      *    )
      * ),
+     * 
      * 
      * 
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
@@ -123,9 +119,8 @@ class ProductVariantApiController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->only('variant_name', 'variant_group_id'), [
-            'variant_name' => 'required|min:1',
-            'variant_group_id' => 'required|numeric'
+        $validator = Validator::make($request->only('variant_group_name'), [
+            'variant_group_name' => 'required|min:3'
         ]);
 
         // Check if validation failed
@@ -133,23 +128,23 @@ class ProductVariantApiController extends Controller
             return $this->sendError($validator->errors(), 'Incomplete Data Provided', 422);
         }
 
-        // Create Product Variant
-        $variantgroup = $this->productvariantRepository->create($validator->validated());
+        // Create Variant Group
+        $variantgroup = $this->variantGroupRepository->create(array_merge($validator->validated(), ['description' => $request->input('description')]));
 
-        return $this->sendResponse($variantgroup, 'Product Variant Created Successfully', 201);
+        return $this->sendResponse($variantgroup, 'Variant Group Created Successfully', 201);
     }
 
     /**
      * @OA\Get(
-     *   path="/api/v1/productvariants/{id}",
-     *   operationId="getProductVariant",
-     *   summary="Fetch a Product Variant",
-     *   tags={"Product Variants"},
-     *   description="Fetch a product variant",
+     *   path="/api/v1/variantgroups/{id}",
+     *   operationId="getVariantGroup",
+     *   summary="Fetch a Variant Group",
+     *   tags={"Variant Groups"},
+     *   description="Fetch a variant group",
      *   security={ {"BearerAuth": {} }},
      *   @OA\Parameter(
      *       name="id",
-     *       description="Product Variant id",
+     *       description="Variant Group id",
      *       required=true,
      *       in="path",
      *       @OA\Schema(
@@ -158,7 +153,7 @@ class ProductVariantApiController extends Controller
      *   ),
      *  @OA\Response(
      *      response=201, 
-     *      description="product variant retrieved successfully",
+     *      description="variant group retrieved successfully",
      *      @OA\MediaType(
      *         mediaType="application/json",
      *      ),
@@ -170,36 +165,32 @@ class ProductVariantApiController extends Controller
      *   @OA\Response(
      *       response=403,
      *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),       
+     *    )
      * )
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
      * Display the specified resource.
      *
-     * @param  \App\Models\ProductVariant  $productvariants
+     * @param  \App\Models\VariantGroup  $variantGroup
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductVariant $productvariant)
+    public function show(VariantGroup $variantgroup)
     {
-        return $this->sendResponse(new ProductVariantResource($productvariant), 'Product Variant Retrieved Successfully', 201);
+        return $this->sendResponse($variantgroup, 'Variant Group Retrieved Successfully', 201);
     }
 
 
     /**
      * @OA\Put(
-     *   path="/api/v1/productvariants/{id}",
-     *   operationId="updateProductVariant",
-     *   summary="Update a product variant",
-     *   tags={"Product Variants"},
-     *   description="Update Product Variant",
+     *   path="/api/v1/variantgroups/{id}",
+     *   operationId="updateVariantGroup",
+     *   summary="Update a variant group",
+     *   tags={"Variant Groups"},
+     *   description="Update Variant Group",
      *   security={ {"BearerAuth": {} }},
      *   @OA\Parameter(
      *       name="id",
-     *       description="Product Variant id",
+     *       description="Variant Group id",
      *       required=true,
      *       in="path",
      *       @OA\Schema(
@@ -207,27 +198,18 @@ class ProductVariantApiController extends Controller
      *       )
      *   ),
      *   @OA\Parameter(
-     *        name="variant_name",
-     *        description="Product Variant Name",
-     *        example="XL",
+     *        name="variant_group_name",
+     *        description="Variant Group Name",
+     *        example="Color",
      *        in="query",
      *        @OA\Schema(
      *          type="string"
      *        )
      *   ),
-     *   @OA\Parameter(
-     *        name="variant_group_id",
-     *        in="query",
-     *        description="Variant Group Id",
-     *        example="1",
-     *        @OA\Schema(
-     *          type="integer"
-     *        )
-     *   ),
      * 
      *  @OA\Response(
      *      response=201, 
-     *      description="product variant updated successfully",
+     *      description="variant group updated successfully",
      *      @OA\MediaType(
      *         mediaType="application/json",
      *      ),
@@ -242,21 +224,18 @@ class ProductVariantApiController extends Controller
      *    )
      * ),
      * 
-     * Update the specified resource in storage.
-     *
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductVariant  $productvariant
+     * @param  \App\Models\VariantGroup  $variantgroup
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductVariant $productvariant)
+    public function update(Request $request, VariantGroup $variantgroup)
     {
-        $validator = Validator::make($request->only('variant_name', 'variant_group_id'), [
-            'variant_name' => 'required|min:1',
-            'variant_group_id' => 'required|numeric'
+        $validator = Validator::make($request->only('variant_group_name'), [
+            'variant_group_name' => 'required|min:3'
         ]);
 
         // Check if validation failed
@@ -264,23 +243,23 @@ class ProductVariantApiController extends Controller
             return $this->sendError($validator->errors(), 'Incomplete Data Provided', 422);
         }
 
-        // Update Product Variant
-        $productvariant->update($validator->validated());
+        // Update Variant Group
+        $variantgroup->update(array_merge($validator->validated(), ['description' => $request->input('description')]));
 
-        return $this->sendResponse(new ProductVariantResource($productvariant), 'Product Variant Updated Successfully', 201);
+        return $this->sendResponse($variantgroup, 'Variant Group Updated Successfully', 201);
     }
 
     /**
      * @OA\Delete(
-     *   path="/api/v1/productvariants/{id}",
-     *   operationId="deleteProductVariant",
-     *   summary="Delete Product Variant",
-     *   tags={"Product Variants"},
-     *   description="Delete a product variant",
+     *   path="/api/v1/variantgroups/{id}",
+     *   operationId="deleteVariantGroup",
+     *   summary="Delete Variant Group",
+     *   tags={"Variant Groups"},
+     *   description="Delete a variant group",
      *   security={ {"BearerAuth": {} }},
      *   @OA\Parameter(
      *       name="id",
-     *       description="Product Variant id",
+     *       description="Variant Group id",
      *       required=true,
      *       in="path",
      *       @OA\Schema(
@@ -289,7 +268,7 @@ class ProductVariantApiController extends Controller
      *   ),
      *   @OA\Response(
      *      response=201, 
-     *      description="Product Variant deleted successfully",
+     *      description="Variant Group deleted successfully",
      *      @OA\MediaType(
      *         mediaType="application/json",
      *      ),
@@ -301,24 +280,20 @@ class ProductVariantApiController extends Controller
      *   @OA\Response(
      *       response=403,
      *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),       
+     *    )
      * ),
      * 
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProductVariant  $productvariant
+     * @param  \App\Models\VariantGroup  $variantgroup
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductVariant $productvariant)
+    public function destroy(VariantGroup $variantgroup)
     {
-        $productvariant->delete();
+        $variantgroup->delete();
 
-        return $this->sendResponse([], 'Product Variant Deleted Successfully', 201);
+        return $this->sendResponse([], 'Variant Group Deleted Successfully', 201);
     }
 }

@@ -44,11 +44,7 @@ class ProductApiController extends Controller
      *   @OA\Response(
      *       response=403,
      *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),       
+     *    )
      * ),
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
@@ -203,11 +199,7 @@ class ProductApiController extends Controller
      *   @OA\Response(
      *       response=403,
      *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),        
+     *    )
      * )
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
@@ -364,11 +356,7 @@ class ProductApiController extends Controller
      *   @OA\Response(
      *       response=403,
      *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),        
+     *    )
      * ),
      * Remove the specified resource from storage.
      *

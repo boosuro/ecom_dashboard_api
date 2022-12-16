@@ -44,11 +44,7 @@ class ProductVariantApiController extends Controller
      *   @OA\Response(
      *       response=403,
      *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),       
+     *    )
      * ),
      * 
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
@@ -170,11 +166,7 @@ class ProductVariantApiController extends Controller
      *   @OA\Response(
      *       response=403,
      *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),       
+     *    )
      * )
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
@@ -190,60 +182,6 @@ class ProductVariantApiController extends Controller
 
 
     /**
-     * @OA\Put(
-     *   path="/api/v1/productvariants/{id}",
-     *   operationId="updateProductVariant",
-     *   summary="Update a product variant",
-     *   tags={"Product Variants"},
-     *   description="Update Product Variant",
-     *   security={ {"BearerAuth": {} }},
-     *   @OA\Parameter(
-     *       name="id",
-     *       description="Product Variant id",
-     *       required=true,
-     *       in="path",
-     *       @OA\Schema(
-     *          type="integer"
-     *       )
-     *   ),
-     *   @OA\Parameter(
-     *        name="variant_name",
-     *        description="Product Variant Name",
-     *        example="XL",
-     *        in="query",
-     *        @OA\Schema(
-     *          type="string"
-     *        )
-     *   ),
-     *   @OA\Parameter(
-     *        name="variant_group_id",
-     *        in="query",
-     *        description="Variant Group Id",
-     *        example="1",
-     *        @OA\Schema(
-     *          type="integer"
-     *        )
-     *   ),
-     * 
-     *  @OA\Response(
-     *      response=201, 
-     *      description="product variant updated successfully",
-     *      @OA\MediaType(
-     *         mediaType="application/json",
-     *      ),
-     *   ),
-     *   @OA\Response(
-     *      response=401,
-     *      description="Unauthorized",
-     *   ),
-     *   @OA\Response(
-     *       response=403,
-     *        description="Forbidden"
-     *    )
-     * ),
-     * 
-     * Update the specified resource in storage.
-     *
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
      * Update the specified resource in storage.
@@ -255,7 +193,7 @@ class ProductVariantApiController extends Controller
     public function update(Request $request, ProductVariant $productvariant)
     {
         $validator = Validator::make($request->only('variant_name', 'variant_group_id'), [
-            'variant_name' => 'required|min:1',
+            'variant_name' => 'required|min:3',
             'variant_group_id' => 'required|numeric'
         ]);
 
@@ -271,43 +209,6 @@ class ProductVariantApiController extends Controller
     }
 
     /**
-     * @OA\Delete(
-     *   path="/api/v1/productvariants/{id}",
-     *   operationId="deleteProductVariant",
-     *   summary="Delete Product Variant",
-     *   tags={"Product Variants"},
-     *   description="Delete a product variant",
-     *   security={ {"BearerAuth": {} }},
-     *   @OA\Parameter(
-     *       name="id",
-     *       description="Product Variant id",
-     *       required=true,
-     *       in="path",
-     *       @OA\Schema(
-     *          type="integer"
-     *       )
-     *   ),
-     *   @OA\Response(
-     *      response=201, 
-     *      description="Product Variant deleted successfully",
-     *      @OA\MediaType(
-     *         mediaType="application/json",
-     *      ),
-     *   ),
-     *   @OA\Response(
-     *      response=401,
-     *      description="Unauthorized",
-     *   ),
-     *   @OA\Response(
-     *       response=403,
-     *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),       
-     * ),
-     * 
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
      * Remove the specified resource from storage.

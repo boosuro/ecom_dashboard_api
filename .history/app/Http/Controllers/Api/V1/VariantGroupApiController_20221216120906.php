@@ -36,11 +36,7 @@ class VariantGroupApiController extends Controller
      *         mediaType="application/json",
      *      ),
      *   ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),
-     *  @OA\Response(
+     *   @OA\Response(
      *      response=401,
      *      description="Unauthorized",
      *   ),
@@ -85,14 +81,8 @@ class VariantGroupApiController extends Controller
      *                   description="Variant Group Name",
      *                   type="string",
      *                   example="Weight"
-     *               ),
-     *               @OA\Property(
-     *                   property="description",
-     *                   description="Description",
-     *                   type="string",
-     *                   example="lorem ipsum"
-     *               )       
-     *         )
+     *               )
+     *           )
      *       )
      *   ),   
      *  @OA\Response(
@@ -139,42 +129,6 @@ class VariantGroupApiController extends Controller
     }
 
     /**
-     * @OA\Get(
-     *   path="/api/v1/variantgroups/{id}",
-     *   operationId="getVariantGroup",
-     *   summary="Fetch a Variant Group",
-     *   tags={"Variant Groups"},
-     *   description="Fetch a variant group",
-     *   security={ {"BearerAuth": {} }},
-     *   @OA\Parameter(
-     *       name="id",
-     *       description="Variant Group id",
-     *       required=true,
-     *       in="path",
-     *       @OA\Schema(
-     *          type="integer"
-     *       )
-     *   ),
-     *  @OA\Response(
-     *      response=201, 
-     *      description="variant group retrieved successfully",
-     *      @OA\MediaType(
-     *         mediaType="application/json",
-     *      ),
-     *   ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),     
-     *   @OA\Response(
-     *      response=401,
-     *      description="Unauthorized",
-     *   ),
-     *   @OA\Response(
-     *       response=403,
-     *        description="Forbidden"
-     *    )
-     * )
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
      * Display the specified resource.
@@ -189,57 +143,6 @@ class VariantGroupApiController extends Controller
 
 
     /**
-     * @OA\Put(
-     *   path="/api/v1/variantgroups/{id}",
-     *   operationId="updateVariantGroup",
-     *   summary="Update a variant group",
-     *   tags={"Variant Groups"},
-     *   description="Update Variant Group",
-     *   security={ {"BearerAuth": {} }},
-     *   @OA\Parameter(
-     *       name="id",
-     *       description="Variant Group id",
-     *       required=true,
-     *       in="path",
-     *       @OA\Schema(
-     *          type="integer"
-     *       )
-     *   ),
-     *   @OA\Parameter(
-     *        name="variant_group_name",
-     *        description="Variant Group Name",
-     *        example="Color",
-     *        in="query",
-     *        @OA\Schema(
-     *          type="string"
-     *        )
-     *   ),
-     *   @OA\Parameter(
-     *        name="description",
-     *        description="Description",
-     *        example="lorem ipsum",
-     *        in="query",
-     *        @OA\Schema(
-     *          type="string"
-     *        )
-     *   ), 
-     *  @OA\Response(
-     *      response=201, 
-     *      description="variant group updated successfully",
-     *      @OA\MediaType(
-     *         mediaType="application/json",
-     *      ),
-     *   ),
-     *   @OA\Response(
-     *      response=401,
-     *      description="Unauthorized",
-     *   ),
-     *   @OA\Response(
-     *       response=403,
-     *        description="Forbidden"
-     *    )
-     * ),
-     * 
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
      * Update the specified resource in storage.
@@ -266,43 +169,6 @@ class VariantGroupApiController extends Controller
     }
 
     /**
-     * @OA\Delete(
-     *   path="/api/v1/variantgroups/{id}",
-     *   operationId="deleteVariantGroup",
-     *   summary="Delete Variant Group",
-     *   tags={"Variant Groups"},
-     *   description="Delete a variant group",
-     *   security={ {"BearerAuth": {} }},
-     *   @OA\Parameter(
-     *       name="id",
-     *       description="Variant Group id",
-     *       required=true,
-     *       in="path",
-     *       @OA\Schema(
-     *          type="integer"
-     *       )
-     *   ),
-     *   @OA\Response(
-     *      response=201, 
-     *      description="Variant Group deleted successfully",
-     *      @OA\MediaType(
-     *         mediaType="application/json",
-     *      ),
-     *   ),
-     *   @OA\Response(
-     *      response=401,
-     *      description="Unauthorized",
-     *   ),
-     *   @OA\Response(
-     *       response=403,
-     *        description="Forbidden"
-     *    ),
-     *  @OA\Response(
-     *      response=404,
-     *      description="Not Found",
-     *   ),     
-     * ),
-     * 
      * @author Boosuro Stephen <boosurostephen@yahoo.com>
      * 
      * Remove the specified resource from storage.
