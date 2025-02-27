@@ -1,4 +1,4 @@
-# <p align="center"> OrderSpack PHP Test</p>
+# <p align="center"> Ecom Dashboard API</p>
 
 #### <p align="center"> JWT Auth and Swagger Documentation</p>
 
